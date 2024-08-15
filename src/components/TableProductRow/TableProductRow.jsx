@@ -1,12 +1,13 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
+import { useDispatch } from "react-redux";
 
 import ActionsMenu from "../../components/ActionsMenu/ActionsMenu";
-import ProductContext from "../../contexts/productContext";
+import { setMainProductInfo } from "../../Redux/store/productsSlice";
 
 export default function TableProductRow({ flag, setFlag, ...props }) {
-  const { setMainProductInfo } = useContext(ProductContext);
+  const dispatch = useDispatch();
 
   const [isShowActionsMenu, setIsShowActionsMenu] = useState(false);
 
@@ -17,12 +18,14 @@ export default function TableProductRow({ flag, setFlag, ...props }) {
   return (
     <>
       <tr>
-        <td className="rounded-l-2xl space-x-1">
+        <td className="rounded-r-2xl space-x-1">
           <LocalMallIcon fontSize="small" className="text-primary mb-0.5" />
-          <span>{props.title}</span>
+          <span className="w-72 line-clamp-1">{props.name}</span>
         </td>
-        <td>{props.price}$</td>
-        <td>{props.count}</td>
+        <td>{props.price.toLocaleString("fa")} تومان</td>
+        <td>{props.discount.toLocaleString("fa")}%</td>
+        <td>{props.count.toLocaleString("fa")}</td>
+        <td>{props.category.title}</td>
         <td>
           <span
             className={`rounded-full px-2 py-1 lowercase ${
@@ -31,14 +34,14 @@ export default function TableProductRow({ flag, setFlag, ...props }) {
                 : "bg-red-100 text-red-500"
             } `}
           >
-            {props.isAvailable ? "available" : "not available"}
+            {props.isAvailable ? "موجود" : "ناموجود"}
           </span>
         </td>
-        <td className="rounded-r-2xl relative">
+        <td className="rounded-l-2xl relative">
           <span
             onClick={() => {
               setIsShowActionsMenu(true);
-              setMainProductInfo(props);
+              dispatch(setMainProductInfo(props));
             }}
             onMouseDown={() => setFlag((prevValue) => !prevValue)}
           >

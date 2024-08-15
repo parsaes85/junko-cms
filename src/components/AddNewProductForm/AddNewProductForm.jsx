@@ -3,11 +3,9 @@ import { useForm } from "react-hook-form";
 
 import Input from "../../components/Input/Input";
 import CustomModal from "../CustomModal/CustomModal";
-import ProductContext from "../../contexts/productContext";
 
 export default function AddNewProductForm() {
   const mainUrl = "http://localhost:8000/api";
-  const { getAllProducts } = useContext(ProductContext);
 
   const [isShowCustomModal, setIsShowCustomModal] = useState(false);
   const [isAvailable, setIsAvailable] = useState("1");
@@ -26,19 +24,7 @@ export default function AddNewProductForm() {
   };
 
   const onSubmit = (data) => {
-    fetch(`${mainUrl}/products`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ...data, isAvailable }),
-    })
-      .then((res) => res.text())
-      .then((data) => {
-        setIsShowCustomModal(true);
-        getAllProducts();
-        emptyInputsValue();
-      });
+
   };
 
   return (

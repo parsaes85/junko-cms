@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useSelector } from "react-redux";
 
 import ProductContext from "../../contexts/productContext";
 import CustomModal from "../../components/CustomModal/CustomModal";
 import EditUserModal from "../EditUserModal/EditUserModal";
 import EditProductModal from "../EditProductModal/EditProductModal";
+import useDeleteUser from "../../hooks/useDeleteUser";
+import useDeleteProduct from "../../hooks/useDeleteProduct";
 
 import "./ActionsMenu.css";
-import { useSelector } from "react-redux";
-import useDeleteUser from "../../hooks/useDeleteUser";
 
 export default function ActionsMenu({
   isShowActionsMenu,
@@ -17,11 +18,10 @@ export default function ActionsMenu({
   status,
 }) {
   const mainUserInfo = useSelector((state) => state.users.mainUserInfo);
+  const mainProductInfo = useSelector((state) => state.products.mainProductInfo);
 
   const { mutate: deleteUser } = useDeleteUser();
-
-  const mainUrl = "http://localhost:8000/api";
-  const productContext = useContext(ProductContext);
+  const { mutate: deleteProduct } = useDeleteProduct();
 
   const [isShowCustomModal, setIsShowCustomModal] = useState(false);
   const [isShowEditUserModal, setIsShowEditUserModal] = useState(false);
@@ -39,14 +39,6 @@ export default function ActionsMenu({
       document.removeEventListener("click", hideActionsMenu);
     };
   }, []);
-
-  const deleteProduct = () => {
-    fetch(`${mainUrl}/products/${productContext.mainProductInfo.ID}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.text())
-      .then((data) => productContext.getAllProducts());
-  };
 
   const showEditModalHandler = () => {
     if (status === "delete-user") {
@@ -70,7 +62,7 @@ export default function ActionsMenu({
             <CustomModal
               type="delete"
               setIsShowCustomModal={setIsShowCustomModal}
-              confirmHandler={deleteProduct}
+              confirmHandler={() => deleteProduct(mainProductInfo.id)}
             />
           )}
         </>
@@ -91,7 +83,7 @@ export default function ActionsMenu({
         }`}
       >
         <div
-          className="bg-sky-50 text-sky-800 px-2 flex gap-1 items-center rounded-md cursor-pointer"
+          className="bg-sky-50 text-sky-800 px-2 py-1 flex gap-1 items-center rounded-md cursor-pointer"
           onClick={() => {
             showEditModalHandler();
           }}
@@ -99,7 +91,7 @@ export default function ActionsMenu({
           <BorderColorIcon fontSize="small" className="actions-icon" /> Edit
         </div>
         <div
-          className="bg-red-50 text-red-800 px-2 flex gap-1 items-center rounded-md cursor-pointer"
+          className="bg-red-50 text-red-800 px-2 py-1 flex gap-1 items-center rounded-md cursor-pointer"
           onClick={() => setIsShowCustomModal(true)}
         >
           <DeleteIcon fontSize="small" className="actions-icon" /> Delete
