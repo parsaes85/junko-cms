@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-react": "^9.0.0",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.16.7",
@@ -18,9 +19,13 @@
     "@tanstack/react-query": "^5.51.23",
     "@tanstack/react-query-devtools": "^5.51.23",
     "autoprefixer": "^10.4.20",
+    "ckeditor5": "^43.0.0",
+    "ckeditor5-custom-project": "file:ckeditor5",
+    "ckeditor5-premium-features": "^43.0.0",
     "json-server": "^1.0.0-beta.1",
     "postcss": "^8.4.41",
     "react": "^18.2.0",
+    "react-color-palette": "^7.2.2",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.52.2",
     "react-redux": "^9.1.2",

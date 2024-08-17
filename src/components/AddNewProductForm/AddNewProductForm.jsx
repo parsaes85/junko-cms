@@ -1,14 +1,25 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { ColorPicker, useColor } from "react-color-palette";
 
 import Input from "../../components/Input/Input";
 import CustomModal from "../CustomModal/CustomModal";
+import useAddNewProduct from "../../hooks/useAddNewProduct";
+import useGetAllCategories from "../../hooks/useGetAllCategories";
+import Ckeditor from "../Ckeditor/Ckeditor";
+
+import "react-color-palette/css";
 
 export default function AddNewProductForm() {
-  const mainUrl = "http://localhost:8000/api";
+  const { data: categories } = useGetAllCategories();
+  const { mutate: addNewProduct } = useAddNewProduct();
 
   const [isShowCustomModal, setIsShowCustomModal] = useState(false);
-  const [isAvailable, setIsAvailable] = useState("1");
+  const [isProductAvailable, setIsProductAvailable] = useState(1);
+  const [productScore, setProductScore] = useState(5);
+  const [productCategory, setProductCategory] = useState("");
+
+  const [color, setColor] = useColor("rgb(86 30 203)");
 
   const {
     register,
@@ -18,13 +29,32 @@ export default function AddNewProductForm() {
   } = useForm();
 
   const emptyInputsValue = () => {
-    setValue("title", "");
+    setValue("name", "");
     setValue("price", "");
     setValue("count", "");
   };
 
   const onSubmit = (data) => {
-
+    const productInfos = {
+      name: data.name,
+      shortDesc:
+        "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده",
+      desc: "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده توضیحات تستی برای دوره ری‌اکت سبزلر توضیحات تستی برای دوره ری‌اکت سبزلر",
+      images: [data.imageLink],
+      categoryId: productCategory,
+      price: Number(data.price),
+      colors: ["#000", "#bebebe"],
+      discount: Number(data.discount),
+      score: productScore,
+      count: Number(data.count),
+      isAvailable: isProductAvailable,
+      isSpecialProduct: 1,
+      isSpecialOffer: 0,
+    };
+    console.log(productInfos);
+    // addNewProduct({ ...data, isAvailable });
+    // setIsShowCustomModal(true);
+    // emptyInputsValue();
   };
 
   return (
@@ -45,26 +75,26 @@ export default function AddNewProductForm() {
         >
           <div>
             <label
-              htmlFor="title-input"
+              htmlFor="name-input"
               className="text-xs font-semibold text-primary"
             >
               عنوان
             </label>
             <Input
               type="text"
-              id="title-input"
+              id="name-input"
               register={{
-                ...register("title", { required: true, minLength: 2 }),
+                ...register("name", { required: true, minLength: 2 }),
               }}
               validations={[
-                errors.title?.type === "required" && (
+                errors.name?.type === "required" && (
                   <p role="alert" className="text-xs text-red-600 mt-1">
-                    Title is required
+                    name is required
                   </p>
                 ),
-                errors.title?.type === "minLength" && (
+                errors.name?.type === "minLength" && (
                   <p role="alert" className="text-xs text-red-600 mt-1">
-                    Title must be at least 2 character
+                    name must be at least 2 character
                   </p>
                 ),
               ]}
@@ -78,7 +108,7 @@ export default function AddNewProductForm() {
               قیمت
             </label>
             <Input
-              type="text"
+              type="number"
               id="price-input"
               register={{
                 ...register("price", { required: true }),
@@ -100,7 +130,7 @@ export default function AddNewProductForm() {
               تعداد
             </label>
             <Input
-              type="count"
+              type="number"
               id="count-input"
               register={{
                 ...register("count", { required: true }),
@@ -116,6 +146,102 @@ export default function AddNewProductForm() {
           </div>
           <div>
             <label
+              htmlFor="discount-input"
+              className="text-xs font-semibold text-primary"
+            >
+              تخفیف
+            </label>
+            <Input
+              type="number"
+              id="discount-input"
+              register={{
+                ...register("discount", { required: true, maxLength: 3 }),
+              }}
+              validations={[
+                errors.discount?.type === "required" && (
+                  <p role="alert" className="text-xs text-red-600 mt-1">
+                    discount is required
+                  </p>
+                ),
+                errors.discount?.type === "maxLength" && (
+                  <p role="alert" className="text-xs text-red-600 mt-1">
+                    discount is maxLength
+                  </p>
+                ),
+              ]}
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="email-input"
+              className="text-xs font-semibold text-primary"
+            >
+              لینک عکس محصول
+            </label>
+            <Input
+              type="count"
+              id="imageLink-input"
+              register={{
+                ...register("imageLink", { required: true }),
+              }}
+              validations={[
+                errors.imageLink?.type === "required" && (
+                  <p role="alert" className="text-xs text-red-600 mt-1">
+                    imageLink is required
+                  </p>
+                ),
+              ]}
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="email-input"
+              className="text-xs font-semibold text-primary"
+            >
+              دسته‌بندی
+            </label>
+            <div>
+              <select
+                name=""
+                id=""
+                className="block w-full py-1 border-b rounded bg-transparent text-gray-800 border-gray-700 focus:outline-none"
+                onChange={(event) => setProductCategory(event.target.value)}
+              >
+                <option value="">انتخاب دسته‌بندی</option>
+                {categories?.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.title}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="email-input"
+              className="text-xs font-semibold text-primary"
+            >
+              امتیاز
+            </label>
+            <div>
+              <select
+                name=""
+                id=""
+                className="block w-full py-1 border-b rounded bg-transparent text-gray-800 border-gray-700 focus:outline-none"
+                onChange={(event) =>
+                  setProductScore(Number(event.target.value))
+                }
+              >
+                <option value="5">خیلی خوب</option>
+                <option value="4">خوب</option>
+                <option value="3">متوسط</option>
+                <option value="2">بد</option>
+                <option value="1">خیلی بد</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label
               htmlFor="phone-number-input"
               className="text-xs font-semibold text-primary"
             >
@@ -123,13 +249,15 @@ export default function AddNewProductForm() {
             </label>
             <div
               className="flex gap-3"
-              onChange={(event) => setIsAvailable(event.target.value)}
+              onChange={(event) =>
+                setIsProductAvailable(Number(event.target.value))
+              }
             >
               <div className="flex items-center gap-0.5">
                 <label htmlFor="available">موجود</label>
                 <input
                   type="radio"
-                  name="isAvailable"
+                  name="isProductAvailable"
                   id="available"
                   value={1}
                   defaultChecked
@@ -139,12 +267,26 @@ export default function AddNewProductForm() {
                 <label htmlFor="not-available">ناموجود</label>
                 <input
                   type="radio"
-                  name="isAvailable"
+                  name="isProductAvailable"
                   id="not-available"
                   value={0}
                 />
               </div>
             </div>
+          </div>
+          <div>
+            <ColorPicker
+              hideInput={["rgb", "hsv"]}
+              height={200}
+              color={color}
+              onChange={setColor}
+            />
+            <button className="border p-2" onClick={() => console.log(color)}>
+              اضافه کردن
+            </button>
+          </div>
+          <div className="col-span-2">
+              <Ckeditor />
           </div>
           <div className="mt-auto">
             <button className="bg-sky-700 text-gray-200 rounded-full px-6 py-2 text-sm hover:bg-sky-800 transition">

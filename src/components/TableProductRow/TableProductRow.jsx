@@ -18,7 +18,7 @@ export default function TableProductRow({ flag, setFlag, ...props }) {
   return (
     <>
       <tr>
-        <td className="rounded-r-2xl space-x-1">
+        <td className="rounded-r-2xl space-x-1 flex gap-2">
           <LocalMallIcon fontSize="small" className="text-primary mb-0.5" />
           <span className="w-72 line-clamp-1">{props.name}</span>
         </td>
