@@ -18,6 +18,8 @@ export default function AddNewProductForm() {
   const [isProductAvailable, setIsProductAvailable] = useState(1);
   const [productScore, setProductScore] = useState(5);
   const [productCategory, setProductCategory] = useState("");
+  const [productShortDesc, setProductShortDesc] = useState("");
+  const [productDesc, setProductDesc] = useState("");
 
   const [color, setColor] = useColor("rgb(86 30 203)");
 
@@ -37,9 +39,8 @@ export default function AddNewProductForm() {
   const onSubmit = (data) => {
     const productInfos = {
       name: data.name,
-      shortDesc:
-        "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده",
-      desc: "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده توضیحات تستی برای دوره ری‌اکت سبزلر توضیحات تستی برای دوره ری‌اکت سبزلر",
+      shortDesc: productShortDesc,
+      desc: productDesc,
       images: [data.imageLink],
       categoryId: productCategory,
       price: Number(data.price),
@@ -274,6 +275,18 @@ export default function AddNewProductForm() {
               </div>
             </div>
           </div>
+          <div className="col-span-2" id="product-shortDesc-ck">
+            <label className="text-xs font-semibold text-primary">
+              توضیحات کوتاه
+            </label>
+            <Ckeditor setProductDesc={setProductShortDesc} defaultText="<p>توضیحات کوتاه محصول را بنویسید</p>" />
+          </div>
+          <div className="col-span-2" id="product-desc-ck">
+            <label className="text-xs font-semibold text-primary">
+              توضیحات 
+            </label>
+            <Ckeditor setProductDesc={setProductDesc} defaultText="<p>توضیحات محصول را بنویسید</p>" />
+          </div>
           <div>
             <ColorPicker
               hideInput={["rgb", "hsv"]}
@@ -284,9 +297,6 @@ export default function AddNewProductForm() {
             <button className="border p-2" onClick={() => console.log(color)}>
               اضافه کردن
             </button>
-          </div>
-          <div className="col-span-2">
-              <Ckeditor />
           </div>
           <div className="mt-auto">
             <button className="bg-sky-700 text-gray-200 rounded-full px-6 py-2 text-sm hover:bg-sky-800 transition">

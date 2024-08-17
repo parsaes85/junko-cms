@@ -4,17 +4,27 @@ import {
   Bold,
   Essentials,
   Italic,
+  Strikethrough,
+  Subscript,
+  Superscript,
   Paragraph,
   Heading,
   Autosave,
   SelectAll,
   Undo,
+  FontFamily,
+  FontSize,
+  FontColor,
+  FontBackgroundColor,
+  Link,
+  Alignment
 } from "ckeditor5";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 
 import "ckeditor5/ckeditor5.css";
+import "./Ckeditor.css"
 
-function Ckeditor() {
+function Ckeditor({ setProductDesc, defaultText }) {
   return (
     <CKEditor
       editor={ClassicEditor}
@@ -25,9 +35,18 @@ function Ckeditor() {
           Essentials,
           Heading,
           Italic,
+          Subscript,
+          Superscript,
+          Strikethrough,
           Paragraph,
           SelectAll,
           Undo,
+          FontFamily,
+          FontSize,
+          FontColor,
+          FontBackgroundColor,
+          Link,
+          Alignment
         ],
         toolbar: [
           "undo",
@@ -39,6 +58,18 @@ function Ckeditor() {
           "|",
           "bold",
           "italic",
+          "strikethrough",
+          "subscript",
+          'superscript',
+          "|",
+          "fontfamily",
+          "fontsize",
+          "fontColor",
+          "fontBackgroundColor",
+          "|",
+          "link",
+          "|",
+          "alignment"
         ],
         heading: {
           options: [
@@ -86,10 +117,9 @@ function Ckeditor() {
           ],
         },
       }}
-      data="<p>Hello from the second editor working with the context!</p>"
-      onReady={(editor) => {
-        // You can store the "editor" and use when it is needed.
-        console.log("Editor 2 is ready to use!", editor);
+      data={defaultText}
+      onChange={(eventInfo, editor) => {
+        setProductDesc(editor.getData());
       }}
     />
   );

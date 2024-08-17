@@ -1,0 +1,21 @@
+.ck.ck-editor {
+    direction: rtl !important;
+    margin-top: 8px;
+}
+
+.ck.ck-toolbar {
+    background: #f3f3f3 !important;
+}
+
+.ck.ck-content {
+    direction: rtl !important;
+    text-align: start !important;
+    background: #f3f3f3 !important;
+}
+#product-shortDesc-ck .ck.ck-content {
+    height: 100px;
+}
+#product-desc-ck .ck.ck-content {
+    height: 200px;
+}
+
