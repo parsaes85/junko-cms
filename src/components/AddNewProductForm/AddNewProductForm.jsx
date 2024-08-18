@@ -19,6 +19,8 @@ export default function AddNewProductForm() {
   const [productShortDesc, setProductShortDesc] = useState("");
   const [productDesc, setProductDesc] = useState("");
   const [productColors, setProductColors] = useState([]);
+  const [isSpecialProduct, setIsSpecialProduct] = useState(0);
+  const [isSpecialOffer, setIsSpecialOffer] = useState(0);
 
   const {
     register,
@@ -46,8 +48,8 @@ export default function AddNewProductForm() {
       score: productScore,
       count: Number(data.count),
       isAvailable: isProductAvailable,
-      isSpecialProduct: 1,
-      isSpecialOffer: 0,
+      isSpecialProduct,
+      isSpecialOffer,
     };
     console.log(productInfos);
     // addNewProduct({ ...data, isAvailable });
@@ -239,6 +241,33 @@ export default function AddNewProductForm() {
             </div>
           </div>
           <div>
+            <label className="text-xs font-semibold text-primary">
+              رنگ محصول
+            </label>
+            <ProductColorPicker
+              colorList={productColors}
+              setColorList={setProductColors}
+            />
+          </div>
+          <div className="col-span-2" id="product-shortDesc-ck">
+            <label className="text-xs font-semibold text-primary">
+              توضیحات کوتاه
+            </label>
+            <Ckeditor
+              setProductDesc={setProductShortDesc}
+              defaultText="<p>توضیحات کوتاه محصول را بنویسید</p>"
+            />
+          </div>
+          <div className="col-span-2" id="product-desc-ck">
+            <label className="text-xs font-semibold text-primary">
+              توضیحات
+            </label>
+            <Ckeditor
+              setProductDesc={setProductDesc}
+              defaultText="<p>توضیحات محصول را بنویسید</p>"
+            />
+          </div>
+          <div>
             <label
               htmlFor="phone-number-input"
               className="text-xs font-semibold text-primary"
@@ -272,32 +301,28 @@ export default function AddNewProductForm() {
               </div>
             </div>
           </div>
-          <div className="col-span-2" id="product-shortDesc-ck">
-            <label className="text-xs font-semibold text-primary">
-              توضیحات کوتاه
-            </label>
-            <Ckeditor
-              setProductDesc={setProductShortDesc}
-              defaultText="<p>توضیحات کوتاه محصول را بنویسید</p>"
-            />
-          </div>
-          <div className="col-span-2" id="product-desc-ck">
-            <label className="text-xs font-semibold text-primary">
-              توضیحات
-            </label>
-            <Ckeditor
-              setProductDesc={setProductDesc}
-              defaultText="<p>توضیحات محصول را بنویسید</p>"
-            />
-          </div>
           <div>
-            <label className="text-xs font-semibold text-primary">
-              رنگ محصول
-            </label>
-            <ProductColorPicker
-              colorList={productColors}
-              setColorList={setProductColors}
-            />
+            <label className="text-xs font-semibold text-primary">وضعیت</label>
+            <div className="flex gap-4">
+              <div className="flex gap-1">
+                <label htmlFor="specialOffer">پیشنهاد های ویژه</label>
+                <input
+                  type="checkbox"
+                  id="specialOffer"
+                  onChange={(e) => setIsSpecialOffer(Number(e.target.checked))}
+                />
+              </div>
+              <div className="flex gap-1">
+                <label htmlFor="specialProduct">محصولات ویژه</label>
+                <input
+                  type="checkbox"
+                  id="specialProduct"
+                  onChange={(e) =>
+                    setIsSpecialProduct(Number(e.target.checked))
+                  }
+                />
+              </div>
+            </div>
           </div>
           <div className="mt-auto">
             <button className="bg-sky-700 text-gray-200 rounded-full px-6 py-2 text-sm hover:bg-sky-800 transition">
