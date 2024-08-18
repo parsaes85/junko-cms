@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { ColorPicker, useColor } from "react-color-palette";
 
 import Input from "../../components/Input/Input";
 import CustomModal from "../CustomModal/CustomModal";
 import useAddNewProduct from "../../hooks/useAddNewProduct";
 import useGetAllCategories from "../../hooks/useGetAllCategories";
 import Ckeditor from "../Ckeditor/Ckeditor";
-
-import "react-color-palette/css";
+import ProductColorPicker from "../ProductColorPicker/ProductColorPicker";
 
 export default function AddNewProductForm() {
   const { data: categories } = useGetAllCategories();
@@ -20,8 +18,7 @@ export default function AddNewProductForm() {
   const [productCategory, setProductCategory] = useState("");
   const [productShortDesc, setProductShortDesc] = useState("");
   const [productDesc, setProductDesc] = useState("");
-
-  const [color, setColor] = useColor("rgb(86 30 203)");
+  const [productColors, setProductColors] = useState([]);
 
   const {
     register,
@@ -44,7 +41,7 @@ export default function AddNewProductForm() {
       images: [data.imageLink],
       categoryId: productCategory,
       price: Number(data.price),
-      colors: ["#000", "#bebebe"],
+      colors: productColors,
       discount: Number(data.discount),
       score: productScore,
       count: Number(data.count),
@@ -279,24 +276,28 @@ export default function AddNewProductForm() {
             <label className="text-xs font-semibold text-primary">
               توضیحات کوتاه
             </label>
-            <Ckeditor setProductDesc={setProductShortDesc} defaultText="<p>توضیحات کوتاه محصول را بنویسید</p>" />
+            <Ckeditor
+              setProductDesc={setProductShortDesc}
+              defaultText="<p>توضیحات کوتاه محصول را بنویسید</p>"
+            />
           </div>
           <div className="col-span-2" id="product-desc-ck">
             <label className="text-xs font-semibold text-primary">
-              توضیحات 
+              توضیحات
             </label>
-            <Ckeditor setProductDesc={setProductDesc} defaultText="<p>توضیحات محصول را بنویسید</p>" />
+            <Ckeditor
+              setProductDesc={setProductDesc}
+              defaultText="<p>توضیحات محصول را بنویسید</p>"
+            />
           </div>
           <div>
-            <ColorPicker
-              hideInput={["rgb", "hsv"]}
-              height={200}
-              color={color}
-              onChange={setColor}
+            <label className="text-xs font-semibold text-primary">
+              رنگ محصول
+            </label>
+            <ProductColorPicker
+              colorList={productColors}
+              setColorList={setProductColors}
             />
-            <button className="border p-2" onClick={() => console.log(color)}>
-              اضافه کردن
-            </button>
           </div>
           <div className="mt-auto">
             <button className="bg-sky-700 text-gray-200 rounded-full px-6 py-2 text-sm hover:bg-sky-800 transition">
