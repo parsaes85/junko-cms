@@ -52,7 +52,7 @@ export default function AddNewProductForm() {
       isSpecialOffer,
     };
     console.log(productInfos);
-    // addNewProduct({ ...data, isAvailable });
+    addNewProduct(productInfos);
     // setIsShowCustomModal(true);
     // emptyInputsValue();
   };

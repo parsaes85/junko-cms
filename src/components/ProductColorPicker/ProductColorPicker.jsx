@@ -7,7 +7,8 @@ import "react-color-palette/css";
 function ProductColorPicker({ colorList, setColorList }) {
   const [color, setColor] = useColor("#000");
 
-  const addColorToColorList = () => {
+  const addColorToColorList = (event) => {
+    event.preventDefault()
     setColorList([...colorList, color.hex]);
   };
 
