@@ -1,14 +1,35 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 import Input from "../Input/Input";
 import ProductContext from "../../contexts/productContext";
+import useGetAllCategories from "../../hooks/useGetAllCategories";
+import Ckeditor from "../Ckeditor/Ckeditor";
+import ProductColorPicker from "../ProductColorPicker/ProductColorPicker";
+import useEditProduct from "../../hooks/useEditProduct";
 
 export default function EditProductModal({ setIsShowEditProductModal }) {
+  const { data: categories } = useGetAllCategories();
+  const { mutate: editProduct } = useEditProduct();
+
+  const mainProductInfo = useSelector(
+    (state) => state.products.mainProductInfo
+  );
+
   const mainUrl = "http://localhost:8000/api";
   const productContext = useContext(ProductContext);
 
-  const [isAvailable, setIsAvailable] = useState(productContext.mainProductInfo.isAvailable);
+  const [isProductAvailable, setIsProductAvailable] = useState(
+    mainProductInfo.isAvailable
+  );
+  const [productScore, setProductScore] = useState(5);
+  const [productCategory, setProductCategory] = useState("");
+  const [productShortDesc, setProductShortDesc] = useState("");
+  const [productDesc, setProductDesc] = useState("");
+  const [productColors, setProductColors] = useState([]);
+  const [isSpecialProduct, setIsSpecialProduct] = useState(0);
+  const [isSpecialOffer, setIsSpecialOffer] = useState(0);
 
   const {
     register,
@@ -16,7 +37,7 @@ export default function EditProductModal({ setIsShowEditProductModal }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  console.log(mainProductInfo);
   useEffect(() => {
     setInputsValuesInEditModal();
 
@@ -33,24 +54,38 @@ export default function EditProductModal({ setIsShowEditProductModal }) {
   }, []);
 
   const onSubmit = (data) => {
-    fetch(`${mainUrl}/products/${productContext.mainProductInfo.ID}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
+    editProduct({
+      productId: mainProductInfo.id,
+      newProductInfos: {
+        name: data.name,
+        shortDesc: productShortDesc,
+        desc: productDesc,
+        images: [data.imageLink],
+        categoryId: productCategory,
+        price: Number(data.price),
+        colors: productColors,
+        discount: Number(data.discount),
+        score: productScore,
+        count: Number(data.count),
+        isAvailable: isProductAvailable,
+        isSpecialProduct,
+        isSpecialOffer,
       },
-      body: JSON.stringify({ ...data, isAvailable }),
-    })
-      .then((res) => res.text())
-      .then((result) => {
-        setIsShowEditProductModal(false)
-        productContext.getAllProducts()
-      });
+    });
+    setIsShowEditProductModal(false)
   };
 
   function setInputsValuesInEditModal() {
-    setValue("title", productContext.mainProductInfo.title);
-    setValue("price", productContext.mainProductInfo.price);
-    setValue("count", productContext.mainProductInfo.count);
+    setValue("name", mainProductInfo.name);
+    setValue("price", mainProductInfo.price);
+    setValue("count", mainProductInfo.count);
+    setValue("discount", mainProductInfo.discount);
+    setValue("imageLink", mainProductInfo.images[0]);
+    setProductCategory(mainProductInfo.categoryId);
+    setProductScore(mainProductInfo.score);
+    setProductColors(mainProductInfo.colors);
+    setIsSpecialOffer(mainProductInfo.isSpecialOffer);
+    setIsSpecialProduct(mainProductInfo.isSpecialProduct);
   }
 
   return (
@@ -58,9 +93,9 @@ export default function EditProductModal({ setIsShowEditProductModal }) {
       id="edit-modal-parent"
       className="fixed top-0 left-0 bg-black bg-opacity-30 h-[100vh] w-full z-50 flex items-center justify-center"
     >
-      <div className="bg-white w-1/2 rounded-lg">
-        <div className="rounded-xl p-6 ">
-          <h1 className="font-semibold text-xl">Edit product</h1>
+      <div className="bg-white w-1/2 rounded-2xl py-6 px-4 overflow-auto h-[95vh]">
+        <div className="rounded-2xl">
+          <h1 className="font-semibold text-xl">ویرایش محصول</h1>
 
           <form
             className="mt-6 grid lg:grid-cols-2 gap-y-6 gap-x-16"
@@ -68,26 +103,26 @@ export default function EditProductModal({ setIsShowEditProductModal }) {
           >
             <div>
               <label
-                htmlFor="title-input"
+                htmlFor="name-input"
                 className="text-xs font-semibold text-primary"
               >
-                Title
+                عنوان
               </label>
               <Input
                 type="text"
-                id="title-input"
+                id="name-input"
                 register={{
-                  ...register("title", { required: true, minLength: 2 }),
+                  ...register("name", { required: true, minLength: 2 }),
                 }}
                 validations={[
-                  errors.title?.type === "required" && (
+                  errors.name?.type === "required" && (
                     <p role="alert" className="text-xs text-red-600 mt-1">
-                      Title is required
+                      name is required
                     </p>
                   ),
-                  errors.title?.type === "minLength" && (
+                  errors.name?.type === "minLength" && (
                     <p role="alert" className="text-xs text-red-600 mt-1">
-                      Title must be at least 2 character
+                      name must be at least 2 character
                     </p>
                   ),
                 ]}
@@ -98,10 +133,10 @@ export default function EditProductModal({ setIsShowEditProductModal }) {
                 htmlFor="username-input"
                 className="text-xs font-semibold text-primary"
               >
-                Price
+                قیمت
               </label>
               <Input
-                type="text"
+                type="number"
                 id="price-input"
                 register={{
                   ...register("price", { required: true }),
@@ -120,10 +155,10 @@ export default function EditProductModal({ setIsShowEditProductModal }) {
                 htmlFor="email-input"
                 className="text-xs font-semibold text-primary"
               >
-                Count
+                تعداد
               </label>
               <Input
-                type="count"
+                type="number"
                 id="count-input"
                 register={{
                   ...register("count", { required: true }),
@@ -139,63 +174,208 @@ export default function EditProductModal({ setIsShowEditProductModal }) {
             </div>
             <div>
               <label
+                htmlFor="discount-input"
+                className="text-xs font-semibold text-primary"
+              >
+                تخفیف
+              </label>
+              <Input
+                type="number"
+                id="discount-input"
+                register={{
+                  ...register("discount", { required: true, maxLength: 3 }),
+                }}
+                validations={[
+                  errors.discount?.type === "required" && (
+                    <p role="alert" className="text-xs text-red-600 mt-1">
+                      discount is required
+                    </p>
+                  ),
+                  errors.discount?.type === "maxLength" && (
+                    <p role="alert" className="text-xs text-red-600 mt-1">
+                      discount is maxLength
+                    </p>
+                  ),
+                ]}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="email-input"
+                className="text-xs font-semibold text-primary"
+              >
+                لینک عکس محصول
+              </label>
+              <Input
+                type="count"
+                id="imageLink-input"
+                register={{
+                  ...register("imageLink", { required: true }),
+                }}
+                validations={[
+                  errors.imageLink?.type === "required" && (
+                    <p role="alert" className="text-xs text-red-600 mt-1">
+                      imageLink is required
+                    </p>
+                  ),
+                ]}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="email-input"
+                className="text-xs font-semibold text-primary"
+              >
+                دسته‌بندی
+              </label>
+              <div>
+                <select
+                  name=""
+                  id=""
+                  className="block w-full py-1 border-b rounded bg-transparent text-gray-800 border-gray-700 focus:outline-none"
+                  onChange={(event) => setProductCategory(event.target.value)}
+                >
+                  <option value="">انتخاب دسته‌بندی</option>
+                  {categories?.map((category) => (
+                    <option
+                      key={category.id}
+                      value={category.id}
+                      selected={category.id == productCategory}
+                    >
+                      {category.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="email-input"
+                className="text-xs font-semibold text-primary"
+              >
+                امتیاز
+              </label>
+              <div>
+                <select
+                  name=""
+                  id=""
+                  className="block w-full py-1 border-b rounded bg-transparent text-gray-800 border-gray-700 focus:outline-none"
+                  onChange={(event) =>
+                    setProductScore(Number(event.target.value))
+                  }
+                >
+                  <option value="5" selected={productScore == 5}>
+                    خیلی خوب
+                  </option>
+                  <option value="4" selected={productScore == 4}>
+                    خوب
+                  </option>
+                  <option value="3" selected={productScore == 3}>
+                    متوسط
+                  </option>
+                  <option value="2" selected={productScore == 2}>
+                    بد
+                  </option>
+                  <option value="1" selected={productScore == 1}>
+                    خیلی بد
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label className="text-xs font-semibold text-primary">
+                رنگ محصول
+              </label>
+              <ProductColorPicker
+                colorList={productColors}
+                setColorList={setProductColors}
+              />
+            </div>
+            <div className="lg:col-span-2" id="product-shortDesc-ck">
+              <label className="text-xs font-semibold text-primary">
+                توضیحات کوتاه
+              </label>
+              <Ckeditor
+                setProductDesc={setProductShortDesc}
+                defaultText={mainProductInfo.shortDesc}
+              />
+            </div>
+            <div className="lg:col-span-2" id="product-desc-ck">
+              <label className="text-xs font-semibold text-primary">
+                توضیحات
+              </label>
+              <Ckeditor
+                setProductDesc={setProductDesc}
+                defaultText={mainProductInfo.desc}
+              />
+            </div>
+            <div>
+              <label
                 htmlFor="phone-number-input"
                 className="text-xs font-semibold text-primary"
               >
-                isAvailable
+                موجودی
               </label>
               <div
                 className="flex gap-3"
-                onChange={(event) => {
-                  setIsAvailable(event.target.value)
-                }}
+                onChange={(event) =>
+                  setIsProductAvailable(Number(event.target.value))
+                }
               >
                 <div className="flex items-center gap-0.5">
-                  <label htmlFor="modal-available">Available</label>
-                  {isAvailable ? (
-                    <input
-                      type="radio"
-                      name="isAvailable"
-                      id="modal-available"
-                      value={1}
-                      defaultChecked
-                    />
-                  ) : (
-                    <input
-                      type="radio"
-                      name="isAvailable"
-                      id="modal-available"
-                      value={1}
-                    />
-                  )}
+                  <label htmlFor="available">موجود</label>
+                  <input
+                    type="radio"
+                    name="isProductAvailable"
+                    id="available"
+                    value={1}
+                    defaultChecked={isProductAvailable}
+                  />
                 </div>
                 <div className="flex items-center gap-0.5">
-                  <label htmlFor="modal-not-available">Not available</label>
-                  {
-                    !isAvailable ? (
-                      <input
-                      type="radio"
-                      name="isAvailable"
-                      id="modal-not-available"
-                      value={0}
-                      defaultChecked
-                    />
-                    ) : (
-                      <input
-                      type="radio"
-                      name="isAvailable"
-                      id="modal-not-available"
-                      value={0}
-                    />
-                    )
-                  }
-
+                  <label htmlFor="not-available">ناموجود</label>
+                  <input
+                    type="radio"
+                    name="isProductAvailable"
+                    id="not-available"
+                    value={0}
+                    defaultChecked={!isProductAvailable}
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <label className="text-xs font-semibold text-primary">
+                وضعیت
+              </label>
+              <div className="flex gap-4">
+                <div className="flex gap-1">
+                  <label htmlFor="specialOffer">پیشنهاد های ویژه</label>
+                  <input
+                    type="checkbox"
+                    id="specialOffer"
+                    checked={isSpecialOffer}
+                    onChange={(e) =>
+                      setIsSpecialOffer(Number(e.target.checked))
+                    }
+                  />
+                </div>
+                <div className="flex gap-1">
+                  <label htmlFor="specialProduct">محصولات ویژه</label>
+                  <input
+                    type="checkbox"
+                    id="specialProduct"
+                    checked={isSpecialProduct}
+                    onChange={(e) =>
+                      setIsSpecialProduct(Number(e.target.checked))
+                    }
+                  />
                 </div>
               </div>
             </div>
             <div className="mt-auto">
               <button className="bg-sky-700 text-gray-200 rounded-full px-6 py-2 text-sm hover:bg-sky-800 transition">
-                Submit
+                ویرایش
               </button>
             </div>
           </form>

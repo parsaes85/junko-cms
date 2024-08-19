@@ -53,8 +53,8 @@ export default function AddNewProductForm() {
     };
     console.log(productInfos);
     addNewProduct(productInfos);
-    // setIsShowCustomModal(true);
-    // emptyInputsValue();
+    setIsShowCustomModal(true);
+    emptyInputsValue();
   };
 
   return (
@@ -249,7 +249,7 @@ export default function AddNewProductForm() {
               setColorList={setProductColors}
             />
           </div>
-          <div className="col-span-2" id="product-shortDesc-ck">
+          <div className="lg:col-span-2" id="product-shortDesc-ck">
             <label className="text-xs font-semibold text-primary">
               توضیحات کوتاه
             </label>
@@ -258,7 +258,7 @@ export default function AddNewProductForm() {
               defaultText="<p>توضیحات کوتاه محصول را بنویسید</p>"
             />
           </div>
-          <div className="col-span-2" id="product-desc-ck">
+          <div className="lg:col-span-2" id="product-desc-ck">
             <label className="text-xs font-semibold text-primary">
               توضیحات
             </label>

@@ -88,13 +88,13 @@ export default function ActionsMenu({
             showEditModalHandler();
           }}
         >
-          <BorderColorIcon fontSize="small" className="actions-icon" /> Edit
+          <BorderColorIcon fontSize="small" className="actions-icon" /> ویرایش
         </div>
         <div
           className="bg-red-50 text-red-800 px-2 py-1 flex gap-1 items-center rounded-md cursor-pointer"
           onClick={() => setIsShowCustomModal(true)}
         >
-          <DeleteIcon fontSize="small" className="actions-icon" /> Delete
+          <DeleteIcon fontSize="small" className="actions-icon" /> حذف
         </div>
       </div>
     </>

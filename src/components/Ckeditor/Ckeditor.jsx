@@ -35,8 +35,6 @@ function Ckeditor({ setProductDesc, defaultText }) {
           Essentials,
           Heading,
           Italic,
-          Subscript,
-          Superscript,
           Strikethrough,
           Paragraph,
           SelectAll,
@@ -59,8 +57,6 @@ function Ckeditor({ setProductDesc, defaultText }) {
           "bold",
           "italic",
           "strikethrough",
-          "subscript",
-          'superscript',
           "|",
           "fontfamily",
           "fontsize",
@@ -118,6 +114,9 @@ function Ckeditor({ setProductDesc, defaultText }) {
         },
       }}
       data={defaultText}
+      onReady={(eventInfo, editor) => {
+        setProductDesc(defaultText)
+      }}
       onChange={(eventInfo, editor) => {
         setProductDesc(editor.getData());
       }}

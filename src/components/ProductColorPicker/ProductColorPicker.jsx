@@ -30,12 +30,12 @@ function ProductColorPicker({ colorList, setColorList }) {
       />
       <div className="flex justify-between items-start mt-2">
         <button
-          className="border border-gray-700 text-gray-800 px-2 py-0.5 rounded"
+          className="border border-gray-700 text-gray-800 px-2 py-0.5 rounded whitespace-nowrap"
           onClick={addColorToColorList}
         >
           اضافه کردن
         </button>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap justify-end gap-2">
           {colorList?.map((color) => (
             <div
               key={color}
