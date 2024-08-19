@@ -19,6 +19,8 @@ export default function ActionsMenu({
 }) {
   const mainUserInfo = useSelector((state) => state.users.mainUserInfo);
   const mainProductInfo = useSelector((state) => state.products.mainProductInfo);
+  const mainBlogInfo = useSelector((state) => state.blogs.mainBlogInfo);
+  console.log(mainBlogInfo)
 
   const { mutate: deleteUser } = useDeleteUser();
   const { mutate: deleteProduct } = useDeleteProduct();

@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
@@ -98,6 +99,15 @@ export default function Sidebar() {
                 >
                   <ShoppingCartOutlinedIcon fontSize="small" />
                   محصولات
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/blogs"
+                  className="flex gap-2 hover:text-slate-900 py-2 pl-4 pr-10 rounded-full"
+                >
+                  <DescriptionOutlinedIcon fontSize="small" />
+                  بلاگ‌ ها
                 </NavLink>
               </li>
               <li>

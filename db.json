@@ -754,7 +754,7 @@
       "shortName": "make-sure-your-next-gpu-has-more-than-8gb-of-memory",
       "creator": "3",
       "categoryId": "4",
-      "publish": false
+      "publish": true
     }
   ],
   "users": [

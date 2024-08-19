@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Users from "./pages/Users/Users";
 import Products from "./pages/Products/Products";
 import Messages from "./pages/Messages/Messages";
+import Blogs from "./pages/Blogs/Blogs";
 
 const routes = [
   { path: "/", element: <Login /> },
@@ -31,6 +32,10 @@ const routes = [
       {
         path: "messages",
         element: <Messages />,
+      },
+      {
+        path: "blogs",
+        element: <Blogs />,
       }
     ],
   },

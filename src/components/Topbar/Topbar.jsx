@@ -27,6 +27,10 @@ export default function Topbar() {
         setTopbarTitle("محصولات");
         break;
       }
+      case "blogs": {
+        setTopbarTitle("بلاگ ها");
+        break;
+      }
       case "messages": {
         setTopbarTitle("پیام ها");
         break;
