@@ -18,13 +18,14 @@ export default function ActionsMenu({
   status,
 }) {
   const mainUserInfo = useSelector((state) => state.users.mainUserInfo);
-  const mainProductInfo = useSelector((state) => state.products.mainProductInfo);
+  const mainProductInfo = useSelector(
+    (state) => state.products.mainProductInfo
+  );
   const mainBlogInfo = useSelector((state) => state.blogs.mainBlogInfo);
-  console.log(mainBlogInfo)
 
   const { mutate: deleteUser } = useDeleteUser();
   const { mutate: deleteProduct } = useDeleteProduct();
-  const { mutate: deleteBlog } = useDeleteBlog()
+  const { mutate: deleteBlog } = useDeleteBlog();
 
   const [isShowCustomModal, setIsShowCustomModal] = useState(false);
   const [isShowEditUserModal, setIsShowEditUserModal] = useState(false);
@@ -61,11 +62,17 @@ export default function ActionsMenu({
               setIsShowCustomModal={setIsShowCustomModal}
               confirmHandler={() => deleteUser(mainUserInfo.id)}
             />
-          ) : (
+          ) : status === "delete-product" ? (
             <CustomModal
               type="delete"
               setIsShowCustomModal={setIsShowCustomModal}
               confirmHandler={() => deleteProduct(mainProductInfo.id)}
+            />
+          ) : (
+            <CustomModal
+              type="delete"
+              setIsShowCustomModal={setIsShowCustomModal}
+              confirmHandler={() => deleteBlog(mainBlogInfo.id)}
             />
           )}
         </>

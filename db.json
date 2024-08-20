@@ -630,7 +630,7 @@
     },
     {
       "id": "ec3a",
-      "blogId": "1",
+      "blogId": null,
       "userId": "f8a0",
       "body": "baaad",
       "answers": [
@@ -643,14 +643,14 @@
     },
     {
       "id": "b0ad",
-      "blogId": "1",
+      "blogId": null,
       "userId": "f8a0",
       "body": "test comment",
       "answers": []
     },
     {
       "id": "0fc5",
-      "blogId": "1",
+      "blogId": null,
       "userId": "f8a0",
       "body": "test comment 2",
       "answers": []
