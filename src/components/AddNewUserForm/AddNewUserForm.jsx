@@ -41,7 +41,7 @@ export default function AddNewUserForm() {
       {isShowCustomModal && (
         <CustomModal
           type="success"
-          title="User"
+          title="کاربر"
           setIsShowCustomModal={setIsShowCustomModal}
         />
       )}

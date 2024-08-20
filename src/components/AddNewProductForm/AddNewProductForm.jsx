@@ -33,6 +33,8 @@ export default function AddNewProductForm() {
     setValue("name", "");
     setValue("price", "");
     setValue("count", "");
+    setValue("discount", "");
+    setValue("imageLink", "");
   };
 
   const onSubmit = (data) => {
@@ -62,7 +64,7 @@ export default function AddNewProductForm() {
       {isShowCustomModal && (
         <CustomModal
           type="success"
-          title="Product"
+          title="محصول"
           setIsShowCustomModal={setIsShowCustomModal}
         />
       )}
@@ -254,7 +256,7 @@ export default function AddNewProductForm() {
               توضیحات کوتاه
             </label>
             <Ckeditor
-              setProductDesc={setProductShortDesc}
+              setDesc={setProductShortDesc}
               defaultText="<p>توضیحات کوتاه محصول را بنویسید</p>"
             />
           </div>
@@ -263,7 +265,7 @@ export default function AddNewProductForm() {
               توضیحات
             </label>
             <Ckeditor
-              setProductDesc={setProductDesc}
+              setDesc={setProductDesc}
               defaultText="<p>توضیحات محصول را بنویسید</p>"
             />
           </div>

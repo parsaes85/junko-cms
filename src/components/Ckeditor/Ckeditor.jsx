@@ -24,7 +24,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import "ckeditor5/ckeditor5.css";
 import "./Ckeditor.css"
 
-function Ckeditor({ setProductDesc, defaultText }) {
+function Ckeditor({ setDesc, defaultText }) {
   return (
     <CKEditor
       editor={ClassicEditor}
@@ -115,10 +115,10 @@ function Ckeditor({ setProductDesc, defaultText }) {
       }}
       data={defaultText}
       onReady={(eventInfo, editor) => {
-        setProductDesc(defaultText)
+        setDesc(defaultText)
       }}
       onChange={(eventInfo, editor) => {
-        setProductDesc(editor.getData());
+        setDesc(editor.getData());
       }}
     />
   );

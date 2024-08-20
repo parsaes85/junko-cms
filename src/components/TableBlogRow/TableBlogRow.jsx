@@ -44,7 +44,7 @@ function TableBlogRow({ flag, setFlag, ...props }) {
           <button
             className="bg-primary px-3 rounded-full py-1"
             onClick={() => {
-              setBlogContentModalBody(props.body);
+              setBlogContentModalBody(props.desc);
               setIsShowBlogContentModal(true);
             }}
           >
@@ -55,7 +55,7 @@ function TableBlogRow({ flag, setFlag, ...props }) {
           <button
             className="bg-primary px-3 rounded-full py-1"
             onClick={() => {
-              setBlogContentModalBody(props.desc);
+              setBlogContentModalBody(props.body);
               setIsShowBlogContentModal(true);
             }}
           >

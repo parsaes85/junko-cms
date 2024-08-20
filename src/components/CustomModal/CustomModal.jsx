@@ -27,13 +27,13 @@ export default function CustomModal({
       <div className="bg-white w-72 py-6 text-center rounded-lg">
         {type === "delete" ? (
           <>
-            <h1 className="font-semibold text-xl">Are you sure?</h1>
+            <h1 className="font-semibold text-xl">آیا اطمینان دارید؟</h1>
             <div className="flex gap-4 justify-center mt-4">
               <button
                 className="bg-sky-700 text-gray-200 py-1 px-6 rounded-full"
                 onClick={() => setIsShowCustomModal(false)}
               >
-                No
+                خیر
               </button>
               <button
                 className="bg-red-700 text-gray-200 py-1 px-6 rounded-full"
@@ -42,33 +42,33 @@ export default function CustomModal({
                   confirmHandler();
                 }}
               >
-                Yes
+                بله
               </button>
             </div>
           </>
         ) : type === "success" ? (
           <>
             <h1 className="font-semibold text-xl">
-              {title} added successfully!
+              {title} با موفقیت اضافه شد
             </h1>
             <div className="flex gap-4 justify-center mt-4">
               <button
                 className="bg-sky-700 text-gray-200 py-1 px-6 rounded-full"
                 onClick={() => setIsShowCustomModal(false)}
               >
-                Ok
+                متوجه شدم
               </button>
             </div>
           </>
         ) : type === "error" ? (
           <>
-            <h1 className="font-semibold text-xl">Admin not found!</h1>
+            <h1 className="font-semibold text-xl">ادمین با این مشخصات پیدا نشد!</h1>
             <div className="flex gap-4 justify-center mt-4">
               <button
                 className="bg-red-700 text-gray-200 py-1 px-6 rounded-full"
                 onClick={() => setIsShowCustomModal(false)}
               >
-                Try again
+                تلاش مجدد
               </button>
             </div>
           </>
@@ -82,7 +82,7 @@ export default function CustomModal({
               className="bg-sky-700 text-gray-200 py-1 px-6 rounded-full"
               onClick={() => setIsShowCustomModal(false)}
             >
-              Ok
+              متوجه شدم
             </button>
           </div>
         </>
