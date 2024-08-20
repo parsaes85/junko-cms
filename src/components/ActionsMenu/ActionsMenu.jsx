@@ -3,12 +3,12 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSelector } from "react-redux";
 
-import ProductContext from "../../contexts/productContext";
 import CustomModal from "../../components/CustomModal/CustomModal";
 import EditUserModal from "../EditUserModal/EditUserModal";
 import EditProductModal from "../EditProductModal/EditProductModal";
 import useDeleteUser from "../../hooks/useDeleteUser";
 import useDeleteProduct from "../../hooks/useDeleteProduct";
+import useDeleteBlog from "../../hooks/useDeleteBlog";
 
 import "./ActionsMenu.css";
 
@@ -24,6 +24,7 @@ export default function ActionsMenu({
 
   const { mutate: deleteUser } = useDeleteUser();
   const { mutate: deleteProduct } = useDeleteProduct();
+  const { mutate: deleteBlog } = useDeleteBlog()
 
   const [isShowCustomModal, setIsShowCustomModal] = useState(false);
   const [isShowEditUserModal, setIsShowEditUserModal] = useState(false);

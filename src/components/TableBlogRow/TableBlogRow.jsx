@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
+import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
 import { useDispatch } from "react-redux";
 
 import ActionsMenu from "../../components/ActionsMenu/ActionsMenu";
 import { setMainBlogInfo } from "../../Redux/store/blogsSlice";
+import BlogContentModal from "../BlogContentModal/BlogContentModal";
 
 function TableBlogRow({ flag, setFlag, ...props }) {
   const dispatch = useDispatch();
 
   const [isShowActionsMenu, setIsShowActionsMenu] = useState(false);
+  const [isShowBlogContentModal, setIsShowBlogContentModal] = useState(false);
+  const [blogContentModalBody, setBlogContentModalBody] = useState("");
 
   useEffect(() => {
     setIsShowActionsMenu(false);
@@ -17,9 +20,18 @@ function TableBlogRow({ flag, setFlag, ...props }) {
 
   return (
     <>
+      {isShowBlogContentModal && (
+        <BlogContentModal
+          body={blogContentModalBody}
+          setIsShowBlogContentModal={setIsShowBlogContentModal}
+        />
+      )}
       <tr className="[&>*]:text-sm">
         <td className="rounded-r-2xl space-x-1 flex gap-2 py-4">
-          <LibraryBooksOutlinedIcon fontSize="small" className="text-primary mb-0.5" />
+          <LibraryBooksOutlinedIcon
+            fontSize="small"
+            className="text-primary mb-0.5"
+          />
           <span className="w-72 line-clamp-1">{props.title}</span>
         </td>
         <td className="">
@@ -29,10 +41,26 @@ function TableBlogRow({ flag, setFlag, ...props }) {
         </td>
         <td className="whitespace-nowrap">{props.category.title}</td>
         <td>
-          <button className="bg-primary px-3 rounded-full py-1">توضیخات</button>
+          <button
+            className="bg-primary px-3 rounded-full py-1"
+            onClick={() => {
+              setBlogContentModalBody(props.body);
+              setIsShowBlogContentModal(true);
+            }}
+          >
+            توضیخات
+          </button>
         </td>
         <td>
-          <button className="bg-primary px-3 rounded-full py-1">محتوا</button>
+          <button
+            className="bg-primary px-3 rounded-full py-1"
+            onClick={() => {
+              setBlogContentModalBody(props.desc);
+              setIsShowBlogContentModal(true);
+            }}
+          >
+            محتوا
+          </button>
         </td>
         <td>
           <span
@@ -58,7 +86,7 @@ function TableBlogRow({ flag, setFlag, ...props }) {
           <ActionsMenu
             isShowActionsMenu={isShowActionsMenu}
             setIsShowActionsMenu={setIsShowActionsMenu}
-            status="delete-product"
+            status="delete-blog"
           />
         </td>
       </tr>
