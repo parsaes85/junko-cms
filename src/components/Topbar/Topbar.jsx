@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
+
+import useGetMe from "../../hooks/useGetMe";
+import { login } from "../../Redux/store/authSlice";
 
 import "./Topbar.css";
 
 export default function Topbar() {
   const userInfos = useSelector((state) => state.auth.userInfos);
+  const { data: getMe } = useGetMe(
+    JSON.parse(localStorage.getItem("adminToken"))
+  );
 
   const [topbarTitle, setTopbarTitle] = useState("");
 
   const location = useLocation();
+  const dispatch = useDispatch();
   const locationPathname = location.pathname.split("/")[1];
 
   useEffect(() => {
@@ -41,6 +48,19 @@ export default function Topbar() {
       }
     }
   }, [locationPathname]);
+
+  useEffect(() => {
+    if (getMe?.length) {
+      if (getMe[0].role == "ADMIN") {
+        dispatch(
+          login({
+            userInfos: getMe[0],
+            isLoggedIn: true,
+          })
+        );
+      }
+    }
+  }, [getMe]);
 
   return (
     <header>

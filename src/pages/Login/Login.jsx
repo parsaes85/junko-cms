@@ -1,4 +1,5 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -7,9 +8,16 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import AuthContext from "../../contexts/authContext";
 import CustomModal from "../../components/CustomModal/CustomModal";
 import useLogin from "../../hooks/useLogin";
+import useGetMe from "../../hooks/useGetMe";
+import { login } from "../../Redux/store/authSlice";
 
 export default function Login() {
   const { mutate: findUser } = useLogin();
+  const { data: getMe } = useGetMe(
+    JSON.parse(localStorage.getItem("adminToken"))
+  );
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const {
@@ -17,6 +25,7 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const [passwordInputType, setPasswordInputType] = useState("password");
   const [isShowCustomModal, setIsShowCustomModal] = useState(false);
 
@@ -27,10 +36,22 @@ export default function Login() {
   };
 
   const onSubmit = (data) => {
-    // navigate('/dashboard')
-    findUser(data)
-    console.log(data);
+    findUser(data);
   };
+
+  useEffect(() => {
+    if (getMe?.length) {
+      if (getMe[0].role == "ADMIN") {
+        navigate("/dashboard");
+        dispatch(
+          login({
+            userInfos: getMe[0],
+            isLoggedIn: true,
+          })
+        );
+      }
+    }
+  }, [getMe]);
 
   return (
     <>
