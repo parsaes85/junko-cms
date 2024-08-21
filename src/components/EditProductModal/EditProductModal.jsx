@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 
 import Input from "../Input/Input";
-import ProductContext from "../../contexts/productContext";
 import useGetAllCategories from "../../hooks/useGetAllCategories";
 import Ckeditor from "../Ckeditor/Ckeditor";
 import ProductColorPicker from "../ProductColorPicker/ProductColorPicker";
@@ -16,9 +15,6 @@ export default function EditProductModal({ setIsShowEditProductModal }) {
   const mainProductInfo = useSelector(
     (state) => state.products.mainProductInfo
   );
-
-  const mainUrl = "http://localhost:8000/api";
-  const productContext = useContext(ProductContext);
 
   const [isProductAvailable, setIsProductAvailable] = useState(
     mainProductInfo.isAvailable
@@ -37,7 +33,7 @@ export default function EditProductModal({ setIsShowEditProductModal }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  console.log(mainProductInfo);
+
   useEffect(() => {
     setInputsValuesInEditModal();
 
