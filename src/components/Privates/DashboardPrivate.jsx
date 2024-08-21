@@ -1,19 +1,21 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import useGetMe from "../../hooks/useGetMe";
 
 export default function DashboardPrivate({ children }) {
-  const userInfos = useSelector((state) => state.auth.userInfos);
-
-  const localStorageToken = JSON.parse(localStorage.getItem("adminToken"));
-
+  const { data: getMe, isPending } = useGetMe(
+    JSON.parse(localStorage.getItem("adminToken"))
+  );
+  
+  const navigate = useNavigate()
+  
   return (
     <>
-      {localStorageToken ? (
+      {!isPending && (getMe.length ? (
         <>{children}</>
       ) : (
-        Navigate({"to": "/"})
-      )}
+        navigate("/")
+      ))}
     </>
   );
 }
