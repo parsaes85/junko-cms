@@ -6,12 +6,13 @@ import { useSelector } from "react-redux";
 import CustomModal from "../../components/CustomModal/CustomModal";
 import EditUserModal from "../EditUserModal/EditUserModal";
 import EditProductModal from "../EditProductModal/EditProductModal";
+import EditBlogModal from "../EditBlogModal/EditBlogModal";
 import useDeleteUser from "../../hooks/useDeleteUser";
 import useDeleteProduct from "../../hooks/useDeleteProduct";
 import useDeleteBlog from "../../hooks/useDeleteBlog";
+import useDeleteCategory from "../../hooks/useDeleteCategory";
 
 import "./ActionsMenu.css";
-import EditBlogModal from "../EditBlogModal/EditBlogModal";
 
 export default function ActionsMenu({
   isShowActionsMenu,
@@ -23,10 +24,14 @@ export default function ActionsMenu({
     (state) => state.products.mainProductInfo
   );
   const mainBlogInfo = useSelector((state) => state.blogs.mainBlogInfo);
+  const mainCategoryInfo = useSelector(
+    (state) => state.categories.mainCategoryInfo
+  );
 
   const { mutate: deleteUser } = useDeleteUser();
   const { mutate: deleteProduct } = useDeleteProduct();
   const { mutate: deleteBlog } = useDeleteBlog();
+  const { mutate: deleteCategory } = useDeleteCategory();
 
   const [isShowCustomModal, setIsShowCustomModal] = useState(false);
   const [isShowEditUserModal, setIsShowEditUserModal] = useState(false);
@@ -72,11 +77,17 @@ export default function ActionsMenu({
               setIsShowCustomModal={setIsShowCustomModal}
               confirmHandler={() => deleteProduct(mainProductInfo.id)}
             />
-          ) : (
+          ) : status === "delete-blog" ? (
             <CustomModal
               type="delete"
               setIsShowCustomModal={setIsShowCustomModal}
               confirmHandler={() => deleteBlog(mainBlogInfo.id)}
+            />
+          ) : (
+            <CustomModal
+              type="delete"
+              setIsShowCustomModal={setIsShowCustomModal}
+              confirmHandler={() => deleteCategory(mainCategoryInfo.id)}
             />
           )}
         </>
@@ -91,9 +102,7 @@ export default function ActionsMenu({
         />
       )}
       {isShowEditBlogModal && (
-        <EditBlogModal
-          setIsShowEditBlogModal={setIsShowEditBlogModal}
-        />
+        <EditBlogModal setIsShowEditBlogModal={setIsShowEditBlogModal} />
       )}
 
       <div
