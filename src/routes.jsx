@@ -6,6 +6,7 @@ import Users from "./pages/Users/Users";
 import Products from "./pages/Products/Products";
 import Messages from "./pages/Messages/Messages";
 import Blogs from "./pages/Blogs/Blogs";
+import Categories from "./pages/Categories/Categories";
 
 const routes = [
   { path: "/", element: <Login /> },
@@ -36,6 +37,10 @@ const routes = [
       {
         path: "blogs",
         element: <Blogs />,
+      },
+      {
+        path: "categories",
+        element: <Categories />,
       }
     ],
   },

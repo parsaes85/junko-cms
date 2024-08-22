@@ -34,12 +34,16 @@ export default function Topbar() {
         setTopbarTitle("محصولات");
         break;
       }
+      case "messages": {
+        setTopbarTitle("پیام ها");
+        break;
+      }
       case "blogs": {
         setTopbarTitle("بلاگ ها");
         break;
       }
-      case "messages": {
-        setTopbarTitle("پیام ها");
+      case "categories": {
+        setTopbarTitle("دسته‌بندی ها");
         break;
       }
       default: {

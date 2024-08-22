@@ -73,11 +73,11 @@ export default function Sidebar() {
           </div>
 
           <div className="mt-8 text-primary font-semibold text-sm">
-            <ul className="pl-3 pr-8">
+            <ul className="pr-3 pl-8">
               <li>
                 <NavLink
                   to="/dashboard"
-                  className="flex gap-2 hover:text-slate-900 py-2 pl-4 pr-10 rounded-full"
+                  className="flex gap-2 hover:text-slate-900 py-2 pr-4 pl-10 rounded-full"
                 >
                   <AssessmentOutlinedIcon fontSize="small" />
                   داشبورد
@@ -86,7 +86,7 @@ export default function Sidebar() {
               <li>
                 <NavLink
                   to="/users"
-                  className="flex gap-2 hover:text-slate-900  py-2 pl-4 pr-10 rounded-full"
+                  className="flex gap-2 hover:text-slate-900  py-2 pr-4 pl-10 rounded-full"
                 >
                   <PersonOutlineOutlinedIcon fontSize="small" />
                   کاربران
@@ -95,7 +95,7 @@ export default function Sidebar() {
               <li>
                 <NavLink
                   to="/products"
-                  className="flex gap-2 hover:text-slate-900 py-2 pl-4 pr-10 rounded-full"
+                  className="flex gap-2 hover:text-slate-900 py-2 pr-4 pl-10 rounded-full"
                 >
                   <ShoppingCartOutlinedIcon fontSize="small" />
                   محصولات
@@ -104,7 +104,7 @@ export default function Sidebar() {
               <li>
                 <NavLink
                   to="/blogs"
-                  className="flex gap-2 hover:text-slate-900 py-2 pl-4 pr-10 rounded-full"
+                  className="flex gap-2 hover:text-slate-900 py-2 pr-4 pl-10 rounded-full"
                 >
                   <DescriptionOutlinedIcon fontSize="small" />
                   بلاگ‌ ها
@@ -112,8 +112,17 @@ export default function Sidebar() {
               </li>
               <li>
                 <NavLink
+                  to="/categories"
+                  className="flex gap-2 hover:text-slate-900 py-2 pr-4 pl-10 rounded-full"
+                >
+                  <DescriptionOutlinedIcon fontSize="small" />
+                  دسته‌بندی‌ها
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
                   to="/messages"
-                  className="flex gap-2 hover:text-slate-900  py-2 pl-4 pr-10 rounded-full"
+                  className="flex gap-2 hover:text-slate-900  py-2 pr-4 pl-10 rounded-full"
                 >
                   <EmailOutlinedIcon fontSize="small" />
                   پیام ها
@@ -123,16 +132,16 @@ export default function Sidebar() {
 
             <hr className="my-3" />
 
-            <ul className="pl-3 pr-8">
+            <ul className="pr-3 pl-8">
               <li>
-                <Link className="flex gap-2 hover:text-slate-900  py-2 pl-4 pr-10 rounded-full">
+                <Link className="flex gap-2 hover:text-slate-900  py-2 pr-4 pl-10 rounded-full">
                   <SettingsOutlinedIcon fontSize="small" />
                   تنظیمات
                 </Link>
               </li>
               <li>
                 <span
-                  className="flex gap-2 hover:text-slate-900  py-2 pl-4 pr-10 rounded-full cursor-pointer"
+                  className="flex gap-2 hover:text-slate-900  py-2 pr-4 pl-10 rounded-full cursor-pointer"
                   onClick={() => setIsShowCustomModal(true)}
                 >
                   <ExitToAppOutlinedIcon fontSize="small" />
