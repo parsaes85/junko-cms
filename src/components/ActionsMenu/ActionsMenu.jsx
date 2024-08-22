@@ -7,10 +7,12 @@ import CustomModal from "../../components/CustomModal/CustomModal";
 import EditUserModal from "../EditUserModal/EditUserModal";
 import EditProductModal from "../EditProductModal/EditProductModal";
 import EditBlogModal from "../EditBlogModal/EditBlogModal";
+import EditCategoryModal from "../EditCategoryModal/EditCategoryModal";
 import useDeleteUser from "../../hooks/useDeleteUser";
 import useDeleteProduct from "../../hooks/useDeleteProduct";
 import useDeleteBlog from "../../hooks/useDeleteBlog";
 import useDeleteCategory from "../../hooks/useDeleteCategory";
+
 
 import "./ActionsMenu.css";
 
@@ -37,6 +39,7 @@ export default function ActionsMenu({
   const [isShowEditUserModal, setIsShowEditUserModal] = useState(false);
   const [isShowEditProductModal, setIsShowEditProductModal] = useState(false);
   const [isShowEditBlogModal, setIsShowEditBlogModal] = useState(false);
+  const [isShowEditCategoryModal, setIsShowEditCategoryModal] = useState(false);
 
   useEffect(() => {
     const hideActionsMenu = (e) => {
@@ -56,8 +59,10 @@ export default function ActionsMenu({
       setIsShowEditUserModal(true);
     } else if (status === "delete-user") {
       setIsShowEditProductModal(true);
-    } else {
+    } else if (status === "delete-blog") {
       setIsShowEditBlogModal(true);
+    } else {
+      setIsShowEditCategoryModal(true)
     }
   };
 
@@ -103,6 +108,9 @@ export default function ActionsMenu({
       )}
       {isShowEditBlogModal && (
         <EditBlogModal setIsShowEditBlogModal={setIsShowEditBlogModal} />
+      )}
+      {isShowEditCategoryModal && (
+        <EditCategoryModal setIsShowEditCategoryModal={setIsShowEditCategoryModal} />
       )}
 
       <div
