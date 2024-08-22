@@ -561,6 +561,18 @@
       "title": "کالاهای سوپرمارکتی",
       "name": "food-beverage",
       "image": "/images/category6.png"
+    },
+    {
+      "id": "00c5",
+      "title": "ads",
+      "name": "asdfasdfsa",
+      "image": "sdafasfd"
+    },
+    {
+      "id": "5cca",
+      "title": "پذیرش",
+      "name": "reception",
+      "image": "image/reception"
     }
   ],
   "menus": [

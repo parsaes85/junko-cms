@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import DataTable from "../../components/DataTable/DataTable";
 import TableCategoryRow from "../../components/TableCategoryRow/TableCategoryRow";
 import useGetAllCategories from "../../hooks/useGetAllCategories";
+import AddNewCategoryForm from "../../components/AddNewCategoryForm/AddNewCategoryForm";
 
 function Categories() {
   const { data: categories } = useGetAllCategories();
@@ -11,7 +12,7 @@ function Categories() {
 
   return (
     <>
-      {/* <AddNewProductForm /> */}
+      <AddNewCategoryForm />
 
       <div className="w-[700px] lg:w-full">
         <DataTable>
