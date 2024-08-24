@@ -76,17 +76,12 @@ function EditCategoryModal({ setIsShowEditCategoryModal }) {
                 type="text"
                 id="title-input"
                 register={{
-                  ...register("title", { required: true, minLength: 2 }),
+                  ...register("title", { required: true }),
                 }}
                 validations={[
                   errors.title?.type === "required" && (
                     <p role="alert" className="text-xs text-red-600 mt-1">
-                      title is required
-                    </p>
-                  ),
-                  errors.title?.type === "minLength" && (
-                    <p role="alert" className="text-xs text-red-600 mt-1">
-                      title must be at least 2 character
+                      عنوان اجباری است
                     </p>
                   ),
                 ]}
@@ -103,17 +98,12 @@ function EditCategoryModal({ setIsShowEditCategoryModal }) {
                 type="text"
                 id="name-input"
                 register={{
-                  ...register("name", { required: true, minLength: 2 }),
+                  ...register("name", { required: true }),
                 }}
                 validations={[
                   errors.name?.type === "required" && (
                     <p role="alert" className="text-xs text-red-600 mt-1">
-                      name is required
-                    </p>
-                  ),
-                  errors.name?.type === "minLength" && (
-                    <p role="alert" className="text-xs text-red-600 mt-1">
-                      name must be at least 2 character
+                      نام اجباری است
                     </p>
                   ),
                 ]}
@@ -130,17 +120,12 @@ function EditCategoryModal({ setIsShowEditCategoryModal }) {
                 type="text"
                 id="imageLink-input"
                 register={{
-                  ...register("imageLink", { required: true, minLength: 2 }),
+                  ...register("imageLink", { required: true }),
                 }}
                 validations={[
                   errors.imageLink?.type === "required" && (
                     <p role="alert" className="text-xs text-red-600 mt-1">
-                      imageLink is required
-                    </p>
-                  ),
-                  errors.imageLink?.type === "minLength" && (
-                    <p role="alert" className="text-xs text-red-600 mt-1">
-                      imageLink must be at least 2 character
+                      لینک عکس دسته‌بندی اجباری است
                     </p>
                   ),
                 ]}

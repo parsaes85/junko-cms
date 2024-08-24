@@ -81,17 +81,17 @@ export default function EditUserModal({ setIsShowEditUserModal }) {
                 type="text"
                 id="name-input"
                 register={{
-                  ...register("fullname", { required: true, minLength: 8 }),
+                  ...register("fullname", { required: true, minLength: 6 }),
                 }}
                 validations={[
-                  errors.name?.type === "required" && (
+                  errors.fullname?.type === "required" && (
                     <p role="alert" className="text-xs text-red-600 mt-1">
-                      Name is required
+                      نام و نام خانوادگی اجباری است
                     </p>
                   ),
-                  errors.name?.type === "minLength" && (
+                  errors.fullname?.type === "minLength" && (
                     <p role="alert" className="text-xs text-red-600 mt-1">
-                      Name must be at least 8 character
+                      نام و نام خانوادگی حداقل باید ۶ کاراکتر باشد
                     </p>
                   ),
                 ]}
@@ -113,12 +113,12 @@ export default function EditUserModal({ setIsShowEditUserModal }) {
                 validations={[
                   errors.username?.type === "required" && (
                     <p role="alert" className="text-xs text-red-600 mt-1">
-                      Username is required
+                      نام کاربری اجباری است
                     </p>
                   ),
                   errors.username?.type === "minLength" && (
                     <p role="alert" className="text-xs text-red-600 mt-1">
-                      Username must be at least 8 character
+                      نام کاربری حداقل باید ۸ کاراکتر باشد
                     </p>
                   ),
                 ]}
@@ -140,7 +140,7 @@ export default function EditUserModal({ setIsShowEditUserModal }) {
                 validations={[
                   errors.email?.type === "required" && (
                     <p role="alert" className="text-xs text-red-600 mt-1">
-                      Email is required
+                      ایمیل اجباری است
                     </p>
                   ),
                 ]}
@@ -162,12 +162,12 @@ export default function EditUserModal({ setIsShowEditUserModal }) {
                 validations={[
                   errors.password?.type === "required" && (
                     <p role="alert" className="text-xs text-red-600 mt-1">
-                      Password is required
+                      رمز عبور اجباری است
                     </p>
                   ),
                   errors.password?.type === "minLength" && (
                     <p role="alert" className="text-xs text-red-600 mt-1">
-                      Password must be at least 8 character
+                      رمز عبور حداقل باید ۸ کاراکتر باشد
                     </p>
                   ),
                 ]}
@@ -184,17 +184,17 @@ export default function EditUserModal({ setIsShowEditUserModal }) {
                 type="text"
                 id="phone-number-input"
                 register={{
-                  ...register("phone", { required: true, minLength: 8 }),
+                  ...register("phone", { required: true, minLength: 10 }),
                 }}
                 validations={[
                   errors.phone?.type === "required" && (
                     <p role="alert" className="text-xs text-red-600 mt-1">
-                      Phone number is required
+                      شماره تلفن اجباری است
                     </p>
                   ),
                   errors.phone?.type === "minLength" && (
                     <p role="alert" className="text-xs text-red-600 mt-1">
-                      Phone number must be at least 8 character
+                      شماره تلفن حداقل باید ۱۰ کاراکتر باشد
                     </p>
                   ),
                 ]}

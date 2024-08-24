@@ -80,23 +80,23 @@ export default function AddNewProductForm() {
               htmlFor="name-input"
               className="text-xs font-semibold text-primary"
             >
-              عنوان
+              نام
             </label>
             <Input
               type="text"
               id="name-input"
               register={{
-                ...register("name", { required: true, minLength: 2 }),
+                ...register("name", { required: true, minLength: 3 }),
               }}
               validations={[
                 errors.name?.type === "required" && (
                   <p role="alert" className="text-xs text-red-600 mt-1">
-                    name is required
+                    نام اجباری است
                   </p>
                 ),
                 errors.name?.type === "minLength" && (
                   <p role="alert" className="text-xs text-red-600 mt-1">
-                    name must be at least 2 character
+                    نام حداقل باید ۳ کارکتر باشد
                   </p>
                 ),
               ]}
@@ -104,7 +104,7 @@ export default function AddNewProductForm() {
           </div>
           <div>
             <label
-              htmlFor="username-input"
+              htmlFor="price-input"
               className="text-xs font-semibold text-primary"
             >
               قیمت
@@ -113,12 +113,17 @@ export default function AddNewProductForm() {
               type="number"
               id="price-input"
               register={{
-                ...register("price", { required: true }),
+                ...register("price", { required: true, minLength: 4 }),
               }}
               validations={[
                 errors.price?.type === "required" && (
                   <p role="alert" className="text-xs text-red-600 mt-1">
-                    Price is required
+                    قیمت اجباری است
+                  </p>
+                ),
+                errors.price?.type === "minLength" && (
+                  <p role="alert" className="text-xs text-red-600 mt-1">
+                    قیمت حداقل باید ۴ کارکتر باشد
                   </p>
                 ),
               ]}
@@ -126,7 +131,7 @@ export default function AddNewProductForm() {
           </div>
           <div>
             <label
-              htmlFor="email-input"
+              htmlFor="count-input"
               className="text-xs font-semibold text-primary"
             >
               تعداد
@@ -140,7 +145,7 @@ export default function AddNewProductForm() {
               validations={[
                 errors.count?.type === "required" && (
                   <p role="alert" className="text-xs text-red-600 mt-1">
-                    Count is required
+                    تعداد اجباری است
                   </p>
                 ),
               ]}
@@ -162,12 +167,12 @@ export default function AddNewProductForm() {
               validations={[
                 errors.discount?.type === "required" && (
                   <p role="alert" className="text-xs text-red-600 mt-1">
-                    discount is required
+                    تخفیف اجباری است
                   </p>
                 ),
                 errors.discount?.type === "maxLength" && (
                   <p role="alert" className="text-xs text-red-600 mt-1">
-                    discount is maxLength
+                    تخفیف نمی‌تواند بیشتر از ۴ کاراکتر باشد{" "}
                   </p>
                 ),
               ]}
@@ -175,7 +180,7 @@ export default function AddNewProductForm() {
           </div>
           <div>
             <label
-              htmlFor="email-input"
+              htmlFor="imageLink-input"
               className="text-xs font-semibold text-primary"
             >
               لینک عکس محصول
@@ -189,7 +194,7 @@ export default function AddNewProductForm() {
               validations={[
                 errors.imageLink?.type === "required" && (
                   <p role="alert" className="text-xs text-red-600 mt-1">
-                    imageLink is required
+                    لینک عکس محصول اجباری است
                   </p>
                 ),
               ]}

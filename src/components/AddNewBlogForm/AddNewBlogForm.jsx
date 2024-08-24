@@ -77,17 +77,12 @@ function AddNewBlogForm() {
               type="text"
               id="title-input"
               register={{
-                ...register("title", { required: true, minLength: 2 }),
+                ...register("title", { required: true }),
               }}
               validations={[
                 errors.title?.type === "required" && (
                   <p role="alert" className="text-xs text-red-600 mt-1">
-                    title is required
-                  </p>
-                ),
-                errors.title?.type === "minLength" && (
-                  <p role="alert" className="text-xs text-red-600 mt-1">
-                    title must be at least 2 character
+                    عنوان اجباری است
                   </p>
                 ),
               ]}
@@ -109,7 +104,7 @@ function AddNewBlogForm() {
               validations={[
                 errors.name?.type === "required" && (
                   <p role="alert" className="text-xs text-red-600 mt-1">
-                    name is required
+                    نام اجباری است
                   </p>
                 ),
               ]}
@@ -131,7 +126,7 @@ function AddNewBlogForm() {
               validations={[
                 errors.imageLink?.type === "required" && (
                   <p role="alert" className="text-xs text-red-600 mt-1">
-                    imageLink is required
+                    لینک عکس بلاگ اجباری است
                   </p>
                 ),
               ]}
