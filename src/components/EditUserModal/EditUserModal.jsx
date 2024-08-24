@@ -62,8 +62,8 @@ export default function EditUserModal({ setIsShowEditUserModal }) {
       id="edit-modal-parent"
       className="fixed top-0 left-0 bg-black bg-opacity-30 h-[100vh] w-full z-50 flex items-center justify-center"
     >
-      <div className="bg-white w-1/2 rounded-lg">
-        <div className="rounded-xl p-6 ">
+      <div className="bg-white w-1/2 rounded-2xl py-6 px-4 overflow-auto max-h-[95vh]">
+        <div className="rounded-2xl">
           <h1 className="font-semibold text-xl">ویرایش کاربر</h1>
 
           <form

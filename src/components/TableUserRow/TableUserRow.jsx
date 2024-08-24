@@ -17,7 +17,7 @@ export default function TableUserRow({ flag, setFlag, ...props }) {
 
   return (
     <>
-      <tr>
+      <tr className="[&>*]:text-sm">
         <td className="rounded-r-2xl space-x-1">
           <AccountCircleIcon
             fontSize="small"
@@ -30,13 +30,13 @@ export default function TableUserRow({ flag, setFlag, ...props }) {
         <td>{props.phone}</td>
         <td>
           <span
-            className={`rounded-full px-2 py-1 lowercase ${
+            className={`rounded-full px-3 py-1 lowercase text-xs lg:text-sm ${
               props.role === "ADMIN"
                 ? "bg-red-100 text-red-500"
                 : "bg-sky-100 text-sky-500"
             }`}
           >
-            {props.role}
+            {props.role === "ADMIN" ? "ادمین" : "کاربر"}
           </span>
         </td>
         <td className="rounded-l-2xl relative">
