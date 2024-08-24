@@ -46,7 +46,7 @@ export default function EditUserModal({ setIsShowEditUserModal }) {
       },
       userId: mainUserInfo.id,
     });
-    setIsShowEditUserModal(false)
+    setIsShowEditUserModal(false);
   };
 
   function setInputsValuesInEditModal() {
@@ -64,15 +64,18 @@ export default function EditUserModal({ setIsShowEditUserModal }) {
     >
       <div className="bg-white w-1/2 rounded-lg">
         <div className="rounded-xl p-6 ">
-          <h1 className="font-semibold text-xl">Edit user</h1>
+          <h1 className="font-semibold text-xl">ویرایش کاربر</h1>
 
-          <form className="mt-6 grid gap-y-6" onSubmit={handleSubmit(onSubmit)}>
+          <form
+            className="mt-6 grid lg:grid-cols-2 gap-y-6 gap-x-16"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div>
               <label
                 htmlFor="name-input"
                 className="text-xs font-semibold text-primary"
               >
-                Name
+                نام و نام خانوادگی
               </label>
               <Input
                 type="text"
@@ -99,7 +102,7 @@ export default function EditUserModal({ setIsShowEditUserModal }) {
                 htmlFor="username-input"
                 className="text-xs font-semibold text-primary"
               >
-                Username
+                نام کاربری
               </label>
               <Input
                 type="text"
@@ -126,7 +129,7 @@ export default function EditUserModal({ setIsShowEditUserModal }) {
                 htmlFor="email-input"
                 className="text-xs font-semibold text-primary"
               >
-                Email
+                ایمیل
               </label>
               <Input
                 type="email"
@@ -148,7 +151,7 @@ export default function EditUserModal({ setIsShowEditUserModal }) {
                 htmlFor="password-input"
                 className="text-xs font-semibold text-primary"
               >
-                Password
+                رمز عبور
               </label>
               <Input
                 type="text"
@@ -175,7 +178,7 @@ export default function EditUserModal({ setIsShowEditUserModal }) {
                 htmlFor="phone-number-input"
                 className="text-xs font-semibold text-primary"
               >
-                Phone number
+                شماره تلفن
               </label>
               <Input
                 type="text"
@@ -199,7 +202,7 @@ export default function EditUserModal({ setIsShowEditUserModal }) {
             </div>
             <div className="mt-auto">
               <button className="bg-sky-700 text-gray-200 rounded-full px-6 py-2 text-sm hover:bg-sky-800 transition">
-                Edit
+                ویرایش
               </button>
             </div>
           </form>

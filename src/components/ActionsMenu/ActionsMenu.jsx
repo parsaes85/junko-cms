@@ -57,7 +57,7 @@ export default function ActionsMenu({
   const showEditModalHandler = () => {
     if (status === "delete-user") {
       setIsShowEditUserModal(true);
-    } else if (status === "delete-user") {
+    } else if (status === "delete-product") {
       setIsShowEditProductModal(true);
     } else if (status === "delete-blog") {
       setIsShowEditBlogModal(true);
