@@ -10,7 +10,9 @@ function useAddNewProduct() {
     mutationFn: (data) =>
       fetch(`${baseURL}/products`, {
         method: "POST",
-        "Content-Type": "application/json",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(data),
       }),
     onSuccess: () => {

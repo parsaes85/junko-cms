@@ -10,7 +10,9 @@ function useAddNewCategory() {
     mutationFn: (data) =>
       fetch(`${baseURL}/categories`, {
         method: "POST",
-        "Content-Type": "application/json",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(data),
       }),
     onSuccess: () => {

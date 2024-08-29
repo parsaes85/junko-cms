@@ -10,7 +10,9 @@ function useEditBlog() {
     mutationFn: (data) =>
       fetch(`${baseURL}/blogs/${data.blogId}`, {
         method: "PUT",
-        "Content-Type": "application/json",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(data.newBlogInfos),
       }),
     onSuccess: (res, data) => {

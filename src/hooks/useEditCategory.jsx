@@ -10,7 +10,9 @@ function useEditCategory() {
     mutationFn: (data) =>
       fetch(`${baseURL}/categories/${data.categoryId}`, {
         method: "PUT",
-        "Content-Type": "application/json",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(data.newCategoryInfos),
       }),
     onSuccess: (res, data) => {

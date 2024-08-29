@@ -10,11 +10,13 @@ function useAddNewUser() {
     mutationFn: (data) =>
       fetch(`${baseURL}/users`, {
         method: "POST",
-        "Content-Type": "application/json",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(data),
       }),
     onSuccess: () => {
-        queryClient.invalidateQueries()
+      queryClient.invalidateQueries();
     },
   });
 }

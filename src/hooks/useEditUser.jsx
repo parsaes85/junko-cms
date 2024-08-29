@@ -10,7 +10,9 @@ function useEditUser() {
     mutationFn: (data) =>
       fetch(`${baseURL}/users/${data.userId}`, {
         method: "PUT",
-        "Content-Type": "application/json",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(data.newUserInfos),
       }),
     onSuccess: (res, data) => {

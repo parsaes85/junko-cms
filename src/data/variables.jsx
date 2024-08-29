@@ -1,3 +1,3 @@
-let baseURL = 'http://localhost:3000'
+let baseURL = 'https://junko-back.onrender.com'
 
 export { baseURL }
