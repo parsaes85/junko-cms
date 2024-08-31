@@ -9,6 +9,7 @@ export default function Products() {
   const { data: products } = useGetProducts();
 
   const [flag, setFlag] = useState(false);
+  console.log(products)
 
   return (
     <>
