@@ -15,7 +15,7 @@ export default function AddNewProductForm() {
   const [isShowCustomModal, setIsShowCustomModal] = useState(false);
   const [isProductAvailable, setIsProductAvailable] = useState(1);
   const [productScore, setProductScore] = useState(5);
-  const [productCategory, setProductCategory] = useState("");
+  const [productCategory, setProductCategory] = useState("{}");
   const [productShortDesc, setProductShortDesc] = useState("");
   const [productDesc, setProductDesc] = useState("");
   const [productColors, setProductColors] = useState([]);
@@ -43,7 +43,7 @@ export default function AddNewProductForm() {
       shortDesc: productShortDesc,
       desc: productDesc,
       images: [data.imageLink],
-      categoryId: productCategory,
+      categoryId: JSON.parse(productCategory).id,
       price: Number(data.price),
       colors: productColors,
       discount: Number(data.discount),
@@ -52,8 +52,8 @@ export default function AddNewProductForm() {
       isAvailable: isProductAvailable,
       isSpecialProduct,
       isSpecialOffer,
+      category: JSON.parse(productCategory)
     };
-    console.log(productInfos);
     addNewProduct(productInfos);
     setIsShowCustomModal(true);
     emptyInputsValue();
@@ -214,9 +214,9 @@ export default function AddNewProductForm() {
                 className="block w-full py-1 border-b rounded bg-transparent text-gray-800 border-gray-700 focus:outline-none"
                 onChange={(event) => setProductCategory(event.target.value)}
               >
-                <option value="">انتخاب دسته‌بندی</option>
+                <option value="{}">انتخاب دسته‌بندی</option>
                 {categories?.map((category) => (
-                  <option key={category.id} value={category.id}>
+                  <option key={category.id} value={JSON.stringify(category)}>
                     {category.title}
                   </option>
                 ))}

@@ -12,7 +12,7 @@ function AddNewBlogForm() {
   const { mutate: addNewBlog } = useAddNewBlog();
 
   const [isShowCustomModal, setIsShowCustomModal] = useState(false);
-  const [blogCategory, setBlogCategory] = useState("");
+  const [blogCategory, setBlogCategory] = useState("{}");
   const [blogDesc, setBlogDesc] = useState("");
   const [blogBody, setBlogBody] = useState("");
   const [isBlogPublish, setIsBlogPublish] = useState(1);
@@ -42,8 +42,9 @@ function AddNewBlogForm() {
       cover: data.imageLink,
       shortName: data.name,
       creator: "3",
-      categoryId: blogCategory,
+      categoryId: JSON.parse(blogCategory).id,
       publish: isBlogPublish,
+      category: JSON.parse(blogCategory)
     };
     addNewBlog(blogInfo);
     setIsShowCustomModal(true);
@@ -143,11 +144,11 @@ function AddNewBlogForm() {
                 className="block w-full py-1 border-b rounded bg-transparent text-gray-800 border-gray-700 focus:outline-none"
                 onChange={(event) => setBlogCategory(event.target.value)}
               >
-                <option value="" selected={!blogCategory}>
+                <option value="{}" selected={!blogCategory}>
                   انتخاب دسته‌بندی
                 </option>
                 {categories?.map((category) => (
-                  <option key={category.id} value={category.id}>
+                  <option key={category.id} value={JSON.stringify(category)}>
                     {category.title}
                   </option>
                 ))}
