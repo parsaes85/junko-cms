@@ -14,7 +14,7 @@ function Categories() {
     <>
       <AddNewCategoryForm />
 
-      <div className="w-[700px] lg:w-full">
+      <div className="w-[700px] lg:w-full overflow-auto">
         <DataTable>
           <thead>
             <tr>

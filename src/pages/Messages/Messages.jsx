@@ -22,7 +22,7 @@ export default function Messages() {
   };
 
   return (
-    <div className="w-[700px] lg:w-full mt-10">
+    <div className="w-[700px] lg:w-full mt-10 overflow-auto">
       <DataTable>
         <thead>
           <tr>

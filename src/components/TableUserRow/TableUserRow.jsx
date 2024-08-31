@@ -18,7 +18,7 @@ export default function TableUserRow({ flag, setFlag, ...props }) {
   return (
     <>
       <tr className="[&>*]:text-sm">
-        <td className="rounded-r-2xl space-x-1">
+        <td className="rounded-r-2xl space-x-1 whitespace-nowrap">
           <AccountCircleIcon
             fontSize="small"
             className="text-primary mb-0.5 ml-2"
