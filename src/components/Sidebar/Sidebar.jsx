@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useHref, useNavigate } from "react-router-dom";
 
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -21,6 +21,7 @@ export default function Sidebar() {
   const [isShowCustomModal, setIsShowCustomModal] = useState(false);
 
   const navigate = useNavigate();
+  const href = useHref()
 
   const logoutHandler = () => {
     navigate("/");
@@ -40,6 +41,10 @@ export default function Sidebar() {
       document.removeEventListener("click", hideSidebar);
     };
   }, []);
+
+  useEffect(() => {
+    setIsShowSidebar(false)
+  }, [href])
 
   return (
     <>
