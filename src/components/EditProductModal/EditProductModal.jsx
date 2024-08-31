@@ -20,7 +20,8 @@ export default function EditProductModal({ setIsShowEditProductModal }) {
     mainProductInfo.isAvailable
   );
   const [productScore, setProductScore] = useState(5);
-  const [productCategory, setProductCategory] = useState("");
+  const [productCategoryId, setProductCategoryId] = useState("");
+  const [productCategory, setProductCategory] = useState({});
   const [productShortDesc, setProductShortDesc] = useState("");
   const [productDesc, setProductDesc] = useState("");
   const [productColors, setProductColors] = useState([]);
@@ -57,7 +58,7 @@ export default function EditProductModal({ setIsShowEditProductModal }) {
         shortDesc: productShortDesc,
         desc: productDesc,
         images: [data.imageLink],
-        categoryId: productCategory,
+        categoryId: productCategoryId,
         price: Number(data.price),
         colors: productColors,
         discount: Number(data.discount),
@@ -66,6 +67,7 @@ export default function EditProductModal({ setIsShowEditProductModal }) {
         isAvailable: isProductAvailable,
         isSpecialProduct,
         isSpecialOffer,
+        category: productCategory,
       },
     });
     setIsShowEditProductModal(false);
@@ -77,7 +79,8 @@ export default function EditProductModal({ setIsShowEditProductModal }) {
     setValue("count", mainProductInfo.count);
     setValue("discount", mainProductInfo.discount);
     setValue("imageLink", mainProductInfo.images[0]);
-    setProductCategory(mainProductInfo.categoryId);
+    setProductCategoryId(mainProductInfo.categoryId);
+    setProductCategory(mainProductInfo.category);
     setProductScore(mainProductInfo.score);
     setProductColors(mainProductInfo.colors);
     setIsSpecialOffer(mainProductInfo.isSpecialOffer);
@@ -234,14 +237,17 @@ export default function EditProductModal({ setIsShowEditProductModal }) {
                   name=""
                   id=""
                   className="block w-full py-1 border-b rounded bg-transparent text-gray-800 border-gray-700 focus:outline-none"
-                  onChange={(event) => setProductCategory(event.target.value)}
+                  onChange={(event) => {
+                    setProductCategoryId(JSON.parse(event.target.value).id);
+                    setProductCategory(JSON.parse(event.target.value));
+                  }}
                 >
                   <option value="">انتخاب دسته‌بندی</option>
                   {categories?.map((category) => (
                     <option
                       key={category.id}
-                      value={category.id}
-                      selected={category.id == productCategory}
+                      value={JSON.stringify(category)}
+                      selected={category.id == productCategoryId}
                     >
                       {category.title}
                     </option>

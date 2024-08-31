@@ -13,7 +13,8 @@ function EditBlogModal({ setIsShowEditBlogModal }) {
 
   const mainBlogInfo = useSelector((state) => state.blogs.mainBlogInfo);
 
-  const [blogCategory, setBlogCategory] = useState("");
+  const [blogCategoryId, setBlogCategoryId] = useState("");
+  const [blogCategory, setBlogCategory] = useState({});
   const [blogDesc, setBlogDesc] = useState("");
   const [blogBody, setBlogBody] = useState("");
   const [isBlogPublish, setIsBlogPublish] = useState(mainBlogInfo.publish);
@@ -50,8 +51,9 @@ function EditBlogModal({ setIsShowEditBlogModal }) {
         cover: data.imageLink,
         shortName: data.name,
         creator: "3",
-        categoryId: blogCategory,
+        categoryId: blogCategoryId,
         publish: isBlogPublish,
+        category: blogCategory,
       },
     });
     setIsShowEditBlogModal(false);
@@ -61,7 +63,8 @@ function EditBlogModal({ setIsShowEditBlogModal }) {
     setValue("title", mainBlogInfo.title);
     setValue("name", mainBlogInfo.shortName);
     setValue("imageLink", mainBlogInfo.cover);
-    setBlogCategory(mainBlogInfo.categoryId);
+    setBlogCategoryId(mainBlogInfo.categoryId);
+    setBlogCategory(mainBlogInfo.category);
     setBlogDesc(mainBlogInfo.desc);
   }
 
@@ -153,16 +156,19 @@ function EditBlogModal({ setIsShowEditBlogModal }) {
                   name=""
                   id=""
                   className="block w-full py-1 border-b rounded bg-transparent text-gray-800 border-gray-700 focus:outline-none"
-                  onChange={(event) => setBlogCategory(event.target.value)}
+                  onChange={(event) => {
+                    setBlogCategoryId(JSON.parse(event.target.value).id);
+                    setBlogCategory(JSON.parse(event.target.value));
+                  }}
                 >
-                  <option value="" selected={!blogCategory}>
+                  <option value="" selected={!blogCategoryId}>
                     انتخاب دسته‌بندی
                   </option>
                   {categories?.map((category) => (
                     <option
                       key={category.id}
-                      value={category.id}
-                      selected={category.id == blogCategory}
+                      value={JSON.stringify(category)}
+                      selected={category.id == blogCategoryId}
                     >
                       {category.title}
                     </option>
